@@ -12,9 +12,9 @@ function Books(title, author, pages, read){
     this.author = author,
     this.pages = pages,
     this.read = read
-    this.info = function() {
+/*     this.info = function() {
         return title + " by " + author + ", " + pages + ", " + (read  ? "read" : "not read yet")
-    }
+    } */
 }
 
 //---------------------FUNCTIONS-------------------------------
@@ -23,19 +23,26 @@ function addBookToLibrary(book) {
 }
 function bookLoop(){
     myLibrary.forEach(function(book){
-        //console.log(book.title)
+        /* const tr = document.createElement('tr');
+        const tdTitle = document.createElement('td');
+        const tdAuthor = document.createElement('td');
+        const tdRead = document.createElement('td');
+        tdTitle.textContent = book.title;
+        tr.appendChild(tdTitle);
+        tdAuthor.textContent = book.author;
+        tr.appendChild(tdAuthor);
+        tdRead.textContent = book.read;
+        tr.appendChild(tdRead);
+        bookClass.appendChild(tr); */
+        
         const tr = document.createElement('tr');
-        const td1 = document.createElement('td');
-        const td2 = document.createElement('td');
-        const td3 = document.createElement('td');
-        td1.textContent = book.title;
-        tr.appendChild(td1);
-        td2.textContent = book.author;
-        tr.appendChild(td2);
-        td3.textContent = book.read;
-        tr.appendChild(td3);
-        bookClass.appendChild(tr);
 
+        for(let p in book){
+            const td = document.createElement('td');
+            td.textContent = book[p];
+            tr.appendChild(td)
+            bookClass.appendChild(tr);
+        }
 
     })
 }
