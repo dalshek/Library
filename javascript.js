@@ -4,17 +4,15 @@ const theHobbit = new Books("The Hobbit", "J.R.R. Tolkien", 295, false);
 const HP = new Books("HP", "J.K. Rowling", 432, true)
 const LOTR = new Books("LOTR", "J.R.R. Tolkien", 578, true)
 const bookClass = document.querySelector('.book');
-
+const addClass = document.querySelector('.add');
+const formContainer = document.querySelector('.formContainer')
 
 //--------------------CONSTRUCTOR---------------------------
 function Books(title, author, pages, read){
     this.title = title,
     this.author = author,
     this.pages = pages,
-    this.read = read
-/*     this.info = function() {
-        return title + " by " + author + ", " + pages + ", " + (read  ? "read" : "not read yet")
-    } */
+    this.read = read ? "readed" : "not readed"
 }
 
 //---------------------FUNCTIONS-------------------------------
@@ -48,12 +46,13 @@ function bookLoop(){
 
     })
 }
+//---------------LISTENERS---------------
 
 const sendButton = document.querySelector('#sendButton');
 
 sendButton.addEventListener('click', function(event){
     event.preventDefault();
-    const titlef = document.getElementById('titlef').value;
+    const titlef = document.querySelector('#titlef').value;
     const authorf = document.getElementById('authorf').value;
     const pagesf = parseInt(document.getElementById('pagesf').value);
     const readedf = document.getElementById('readedf').value;
@@ -62,6 +61,15 @@ sendButton.addEventListener('click', function(event){
     addBookToLibrary(book);
     bookLoop();
 })
+
+
+addClass.addEventListener('click', function(){
+    if(formContainer.style.display === "none"){
+        formContainer.style.display = "block";
+    }else{
+        formContainer.style.display = "none";
+    }
+});
 
 //----------------------CALL---------------------
 addBookToLibrary(theHobbit);
