@@ -1,9 +1,10 @@
-//-------------------INITIALIZING VARIABLES--------------------
+//-------------------VARIABLES--------------------
 let myLibrary = [];
 const theHobbit = new Books("The Hobbit", "J.R.R. Tolkien", 295, false);
 const HP = new Books("HP", "J.K. Rowling", 432, true)
 const LOTR = new Books("LOTR", "J.R.R. Tolkien", 578, true)
 const bookClass = document.querySelector('.book');
+const sendButton = document.querySelector('#sendButton');
 const addClass = document.querySelector('.add');
 const formContainer = document.querySelector('.formContainer')
 
@@ -12,7 +13,7 @@ function Books(title, author, pages, read){
     this.title = title,
     this.author = author,
     this.pages = pages,
-    this.read = read ? "readed" : "not readed"
+    this.read = read ? "Readed" : "Not readed"
 }
 
 //---------------------FUNCTIONS-------------------------------
@@ -34,7 +35,6 @@ function bookLoop(){
         tr.appendChild(tdRead);
         bookClass.appendChild(tr); */
         
-
         const tr = document.createElement('tr');
 
         for(let p in book){
@@ -44,12 +44,34 @@ function bookLoop(){
             bookClass.appendChild(tr);
         }
 
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        bookClass.appendChild(removeButton);
+
+        removeButton.addEventListener('click', function(){
+            tr.remove(); ////solo lo elimina del DOM, no del ARRAY
+            removeButton.remove(); 
+            statusButton.remove();
+
+        })
+
+        const statusButton = document.createElement('button');
+        statusButton.textContent = 'Status';
+        bookClass.appendChild(statusButton);
+
+        statusButton.addEventListener('click', function(){
+            if(book.read === "true" || book.read === "Readed") book.read = "Not readed";
+            else book.read = "Readed"
+            bookClass.innerHTML="";
+            bookLoop();
+        })
+
+
     })
 }
 //---------------LISTENERS---------------
 
-const sendButton = document.querySelector('#sendButton');
-
+//Creating new books
 sendButton.addEventListener('click', function(event){
     event.preventDefault();
     const titlef = document.querySelector('#titlef').value;
@@ -57,21 +79,39 @@ sendButton.addEventListener('click', function(event){
     const pagesf = parseInt(document.getElementById('pagesf').value);
     const readedf = document.getElementById('readedf').value;
 
-    const book = new Books(titlef, authorf, pagesf, readedf);
+    let truly = false;
+    if(readedf === "true") truly = true;
+
+    const book = new Books(titlef, authorf, pagesf, truly);
     addBookToLibrary(book);
     bookLoop();
 })
 
-
-addClass.addEventListener('click', function(){
-    if(formContainer.style.display === "none"){
+//Show/hide form
+//Using an extensible form
+ addClass.addEventListener('click', function(){
+     if(formContainer.style.display === "none"){
         formContainer.style.display = "block";
     }else{
         formContainer.style.display = "none";
-    }
-});
+    } 
+}); 
 
-//----------------------CALL---------------------
+//Using a window form
+/* window.addEventListener('load', function() {
+    const formContainer = document.querySelector('.formContainer');
+    const addClass = document.querySelector('.add');
+    
+  
+    addClass.addEventListener('click', function(e) {
+      e.preventDefault();
+      formContainer.style.display = 'block';
+    });
+  });
+ */
+
+
+//----------------------CALLS---------------------
 addBookToLibrary(theHobbit);
 addBookToLibrary(HP);
 addBookToLibrary(LOTR);
