@@ -27,5 +27,24 @@
       <tbody class="book"></tbody>
     </table>
     <button class="add">ADD A NEW BOOK TO THE COLLECTION</button>
+    <form name="form" action="" method="POST">
+      <label for="titlef">Title of the book: </label>
+      <input
+        type="text"
+        id="titlef"
+        name="title"
+        placeholder="tiroriro"
+      /><br />
+      <label for="authorf">Author of the book: </label>
+      <input type="text" id="authorf" name="author" /><br />
+      <label for="pagesf">Pages</label>
+      <input type="number" id="pagesf" name="pages" />
+      <p>Readed?</p>
+      <select name="readed" id="readedf">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+      <button type="submit" name="submit" id="sendButton">Send</button>
+    </form>
   </body>
 </html>

@@ -20,6 +20,7 @@ function Books(title, author, pages, read){
 //---------------------FUNCTIONS-------------------------------
 function addBookToLibrary(book) {
     myLibrary.push(book);
+    bookClass.innerHTML="";
 }
 function bookLoop(){
     myLibrary.forEach(function(book){
@@ -35,6 +36,7 @@ function bookLoop(){
         tr.appendChild(tdRead);
         bookClass.appendChild(tr); */
         
+
         const tr = document.createElement('tr');
 
         for(let p in book){
@@ -47,6 +49,19 @@ function bookLoop(){
     })
 }
 
+const sendButton = document.querySelector('#sendButton');
+
+sendButton.addEventListener('click', function(event){
+    event.preventDefault();
+    const titlef = document.getElementById('titlef').value;
+    const authorf = document.getElementById('authorf').value;
+    const pagesf = parseInt(document.getElementById('pagesf').value);
+    const readedf = document.getElementById('readedf').value;
+
+    const book = new Books(titlef, authorf, pagesf, readedf);
+    addBookToLibrary(book);
+    bookLoop();
+})
 
 //----------------------CALL---------------------
 addBookToLibrary(theHobbit);
